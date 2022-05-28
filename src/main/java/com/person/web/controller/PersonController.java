@@ -1,6 +1,9 @@
 package com.person.web.controller;
 
+import com.person.db.model.Person;
+import com.person.service.PersonService;
 import com.person.web.dto.PersonDto;
+import com.person.web.mapper.PersonMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -18,9 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class PersonController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final PersonService personService;
+    private final PersonMapper personMapper;
+
+    public PersonController(PersonService personService,
+                            PersonMapper personMapper) {
+        this.personService = personService;
+        this.personMapper = personMapper;
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Long savePerson(@RequestBody PersonDto dto) {
         logger.info("PersonDto: {}", dto);
-        return null;
+        Person person = personMapper.mapToPerson(dto);
+        return personService.savePerson(person);
     }
 }
