@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(
         value = "/api/v1/person",
@@ -31,7 +33,7 @@ public class PersonController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Long savePerson(@RequestBody PersonDto dto) {
+    public Long savePerson(@RequestBody @Valid PersonDto dto) {
         logger.info("PersonDto: {}", dto);
         Person person = personMapper.mapToPerson(dto);
         return personService.savePerson(person);
