@@ -24,7 +24,7 @@ public class PersonService {
         return personSave.getId();
     }
 
-    public List<Person> getPeople() {
-        return personRepository.findAll();
+    public List<Person> getPeople(boolean russian) {
+        return russian ? personRepository.findOnlyRussian() : personRepository.findAll();
     }
 }

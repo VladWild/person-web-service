@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -41,8 +42,8 @@ public class PersonController {
     }
 
     @GetMapping("/list")
-    public List<PersonDto> getPeople() {
-        List<Person> people = personService.getPeople();
+    public List<PersonDto> getPeople(@RequestParam(required = false) Boolean russian) {
+        List<Person> people = personService.getPeople(Boolean.TRUE.equals(russian));
         return people.stream()
                 .map(person -> conversionService.convert(person, PersonDto.class))
                 .collect(Collectors.toList());
