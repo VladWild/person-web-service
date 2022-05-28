@@ -27,8 +27,6 @@ import java.util.stream.Collectors;
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class PersonController {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private final ConversionService conversionService;
     private final PersonService personService;
     private final PersonMapper personMapper;
@@ -51,7 +49,6 @@ public class PersonController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public Long savePerson(@RequestBody @Valid PersonDto dto) {
-        logger.info("PersonDto: {}", dto);
         Person person = personMapper.mapToPerson(dto);
         return personService.savePerson(person);
     }
