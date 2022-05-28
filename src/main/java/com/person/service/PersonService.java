@@ -2,9 +2,11 @@ package com.person.service;
 
 import com.person.db.model.Person;
 import com.person.db.repository.PersonRepository;
+import com.person.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -25,6 +27,10 @@ public class PersonService {
     }
 
     public List<Person> getPeople(boolean russian) {
-        return russian ? personRepository.findOnlyRussian() : personRepository.findAll();
+        List<Person> people = russian ? personRepository.findOnlyRussian() : personRepository.findAll();
+        if (CollectionUtils.isEmpty(people)) {
+            throw new NotFoundException("people not found");
+        }
+        return people;
     }
 }

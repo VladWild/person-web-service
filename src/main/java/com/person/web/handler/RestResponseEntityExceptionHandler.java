@@ -1,5 +1,6 @@
 package com.person.web.handler;
 
+import com.person.exceptions.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -29,6 +31,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     private static final String PATH = "path";
 
     private static final String REASONS = "reasons";
+
+    @ExceptionHandler(value = NotFoundException.class)
+    protected ResponseEntity<Object> handleNotFound(NotFoundException ex, WebRequest request) {
+        logger.error("Not found error: {}", ex.getMessage());
+        Map<String, Object> body = getGeneralErrorBody(HttpStatus.NOT_FOUND, request);
+        body.put(REASONS, ex.getMessage());
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
