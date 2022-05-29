@@ -45,4 +45,12 @@ public class PersonService {
         BeanUtils.copyProperties(person, personDb, "id");
         personRepository.save(personDb);
     }
+
+    public void deletePerson(Long personId) {
+        if (personRepository.existsById(personId)) {
+            personRepository.deleteById(personId);
+            return;
+        }
+        throw new NotFoundException(String.format("person with id = %s not found for delete", personId));
+    }
 }

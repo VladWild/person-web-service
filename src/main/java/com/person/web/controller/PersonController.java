@@ -8,6 +8,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,12 @@ public class PersonController {
                                              @RequestBody @Valid PersonDto dto) {
         Person person = personMapper.mapToPerson(dto);
         personService.changePerson(personId, person);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@NotNull @PathVariable("id") Long personId) {
+        personService.deletePerson(personId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
