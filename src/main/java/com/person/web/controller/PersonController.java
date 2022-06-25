@@ -59,8 +59,8 @@ public class PersonController {
     }
 
     @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Long[] savePeople(@RequestBody @Valid PersonDto[] peopleDto) {
-        List<Person> people = Arrays.stream(peopleDto)
+    public Long[] savePeople(@RequestBody @NotNull List<PersonDto> peopleDto) {
+        List<Person> people = peopleDto.stream()
                 .map(personMapper::mapToPerson)
                 .toList();
         return personService.savePersons(people);
