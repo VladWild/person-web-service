@@ -28,6 +28,12 @@ public class PersonService {
         return personSave.getId();
     }
 
+    public Long[] savePersons(List<Person> people) {
+        List<Person> peopleSave = personRepository.saveAll(people);
+        logger.info("People Save: {}", peopleSave);
+        return peopleSave.stream().map(Person::getId).toArray(Long[]::new);
+    }
+
     public List<Person> getPeople(boolean russian) {
         List<Person> people = russian ? personRepository.findOnlyRussian() : personRepository.findAll();
         if (CollectionUtils.isEmpty(people)) {

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class PersonController {
         this.personMapper = personMapper;
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public List<PersonDto> getPeople(@RequestParam(required = false) Boolean russian) {
         List<Person> people = personService.getPeople(Boolean.TRUE.equals(russian));
         return people.stream()
@@ -55,6 +56,14 @@ public class PersonController {
     public Long savePerson(@RequestBody @Valid PersonDto dto) {
         Person person = personMapper.mapToPerson(dto);
         return personService.savePerson(person);
+    }
+
+    @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Long[] savePeople(@RequestBody @Valid PersonDto[] peopleDto) {
+        List<Person> people = Arrays.stream(peopleDto)
+                .map(personMapper::mapToPerson)
+                .toList();
+        return personService.savePersons(people);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
