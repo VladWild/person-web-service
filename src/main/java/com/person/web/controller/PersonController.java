@@ -3,6 +3,7 @@ package com.person.web.controller;
 import com.person.db.model.Person;
 import com.person.service.PersonService;
 import com.person.web.dto.PersonDto;
+import com.person.web.dto.PersonDtoResponse;
 import com.person.web.mapper.PersonMapper;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class PersonController {
     public List<PersonDto> getPeople(@RequestParam(required = false) Boolean russian) {
         List<Person> people = personService.getPeople(Boolean.TRUE.equals(russian));
         return people.stream()
-                .map(person -> conversionService.convert(person, PersonDto.class))
+                .map(person -> conversionService.convert(person, PersonDtoResponse.class))
                 .collect(Collectors.toList());
     }
 
