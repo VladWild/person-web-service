@@ -1,11 +1,11 @@
 package com.person.web.mapper;
 
 import com.person.db.model.Person;
-import com.person.web.dto.PersonDto;
+import com.person.web.dto.request.PersonRequestDto;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface PersonMapper {
 
-    Person mapToPerson(PersonDto dto);
+    Person mapToPerson(PersonRequestDto dto);
 }

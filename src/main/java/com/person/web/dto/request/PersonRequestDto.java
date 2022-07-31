@@ -1,10 +1,10 @@
-package com.person.web.dto;
+package com.person.web.dto.request;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class PersonDto {
+public class PersonRequestDto {
     @NotBlank(message = "name should not be blank")
     private String name;
     @NotNull(message = "age should not be null")

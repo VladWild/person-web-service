@@ -1,17 +1,16 @@
 package com.person.web.covertor;
 
 import com.person.db.model.Person;
-import com.person.web.dto.PersonDto;
-import com.person.web.dto.PersonDtoResponse;
+import com.person.web.dto.response.PersonResponseDto;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PersonToPersonDtoResponse implements Converter<Person, PersonDtoResponse> {
+public class PersonToPersonResponseDto implements Converter<Person, PersonResponseDto> {
 
     @Override
-    public PersonDtoResponse convert(Person person) {
-        PersonDtoResponse personDto = new PersonDtoResponse();
+    public PersonResponseDto convert(Person person) {
+        PersonResponseDto personDto = new PersonResponseDto();
         personDto.setId(person.getId());
         personDto.setName(person.getName());
         personDto.setAge(person.getAge());

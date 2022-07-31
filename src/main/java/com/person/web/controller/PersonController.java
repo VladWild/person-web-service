@@ -2,13 +2,14 @@ package com.person.web.controller;
 
 import com.person.db.model.Person;
 import com.person.service.PersonService;
-import com.person.web.dto.PersonDto;
-import com.person.web.dto.PersonDtoResponse;
+import com.person.web.dto.request.PersonRequestDto;
+import com.person.web.dto.response.PersonResponseDto;
 import com.person.web.mapper.PersonMapper;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestController
 @RequestMapping(
         value = "/api/v1/person",
@@ -46,21 +47,15 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<PersonDto> getPeople(@RequestParam(required = false) Boolean russian) {
+    public List<PersonRequestDto> getPeople(@RequestParam(required = false) Boolean russian) {
         List<Person> people = personService.getPeople(Boolean.TRUE.equals(russian));
         return people.stream()
-                .map(person -> conversionService.convert(person, PersonDtoResponse.class))
+                .map(person -> conversionService.convert(person, PersonResponseDto.class))
                 .collect(Collectors.toList());
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Long savePerson(@RequestBody @Valid PersonDto dto) {
-        Person person = personMapper.mapToPerson(dto);
-        return personService.savePerson(person);
-    }
-
     @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Long[] savePeople(@RequestBody @NotNull List<PersonDto> peopleDto) {
+    public Long[] savePeople(@RequestBody @Valid @NotNull List<PersonRequestDto> peopleDto) {
         List<Person> people = peopleDto.stream()
                 .map(personMapper::mapToPerson)
                 .toList();
@@ -68,15 +63,15 @@ public class PersonController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> changePerson(@NotNull @PathVariable("id") Long personId,
-                                             @RequestBody @Valid PersonDto dto) {
+    public ResponseEntity<Void> changePerson(@PathVariable("id") Long personId,
+                                             @RequestBody @Valid @NotNull PersonRequestDto dto) {
         Person person = personMapper.mapToPerson(dto);
         personService.changePerson(personId, person);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePerson(@NotNull @PathVariable("id") Long personId) {
+    public ResponseEntity<Void> deletePerson(@PathVariable("id") @NotNull Long personId) {
         personService.deletePerson(personId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

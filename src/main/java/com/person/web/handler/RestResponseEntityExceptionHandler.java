@@ -16,7 +16,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,15 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         Map<String, Object> body = getGeneralErrorBody(HttpStatus.NOT_FOUND, request);
         body.put(REASONS, ex.getMessage());
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    protected ResponseEntity<Object> constraintViolationException(ConstraintViolationException ex, WebRequest request) {
+        logger.error("Constraint error: {}", ex.getMessage(), ex);
+        Map<String, Object> body = getGeneralErrorBody(HttpStatus.BAD_REQUEST, request);
+        List<String> errors = Arrays.stream(ex.getMessage().split(", ")).toList();
+        body.put(REASONS, errors);
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
     @Override
