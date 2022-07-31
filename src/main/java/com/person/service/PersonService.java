@@ -22,12 +22,6 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
-    public Long savePerson(Person person) {
-        Person personSave = personRepository.save(person);
-        logger.info("Person Save: {}", personSave);
-        return personSave.getId();
-    }
-
     public Long[] savePersons(List<Person> people) {
         List<Person> peopleSave = personRepository.saveAll(people);
         logger.info("People Save: {}", peopleSave);

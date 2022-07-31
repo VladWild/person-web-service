@@ -1,9 +1,12 @@
 package com.person.web.dto.request;
 
+import com.person.web.validator.PersonValid;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@PersonValid
 public class PersonRequestDto {
     @NotBlank(message = "name should not be blank")
     private String name;
