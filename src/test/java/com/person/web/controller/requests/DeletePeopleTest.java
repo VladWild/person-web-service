@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @MockBean(classes = {
         PersonMapper.class
 })
-@DisplayName("Сервис удаления человека по id")
+@DisplayName("DELETE Сервис удаления человека по id")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DeletePeopleTest extends PersonControllerTest {
 
@@ -62,6 +62,7 @@ class DeletePeopleTest extends PersonControllerTest {
         mockMvc.perform(request)
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.reasons").value(String.format("person with id = %s not found for delete", personId)));
+                .andExpect(jsonPath("$.reasons")
+                        .value(String.format("person with id = %s not found for delete", personId)));
     }
 }

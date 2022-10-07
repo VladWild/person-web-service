@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         //repository
         PersonRepository.class
 })
-@DisplayName("Сервис изменения человека")
+@DisplayName("PUT Сервис изменения человека")
 class PutPeopleTest extends PersonControllerTest {
 
     @Autowired

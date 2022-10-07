@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @MockBean(classes = {
         PersonMapper.class
 })
-@DisplayName("Сервис получения списка людей")
+@DisplayName("GET Сервис получения списка людей")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GetPeopleTest extends PersonControllerTest {
 

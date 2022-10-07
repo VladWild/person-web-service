@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         //repository
         PersonRepository.class
 })
-@DisplayName("Сервис сохранения списка людей")
+@DisplayName("POST Сервис сохранения списка людей")
 class PostPeopleListTest extends PersonControllerTest {
     private static final String POST_PERSON_V1_URL = PERSON_V1_URL + "/list";
 
