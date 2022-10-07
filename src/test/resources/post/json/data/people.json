@@ -1,0 +1,17 @@
+[
+  {
+    "name" : "Андрей",
+    "age" : 28,
+    "russian" : true
+  },
+  {
+    "name" : "Константин",
+    "age" : 24,
+    "russian" : true
+  },
+  {
+    "name" : "Alex",
+    "age" : 21,
+    "russian" : false
+  }
+]

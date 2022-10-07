@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Validated
 @RestController
@@ -47,11 +45,11 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<PersonRequestDto> getPeople(@RequestParam(required = false) Boolean russian) {
+    public List<PersonResponseDto> getPeople(@RequestParam(required = false) Boolean russian) {
         List<Person> people = personService.getPeople(Boolean.TRUE.equals(russian));
         return people.stream()
                 .map(person -> conversionService.convert(person, PersonResponseDto.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)

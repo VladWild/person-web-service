@@ -20,7 +20,7 @@ class PersonValidatorTest {
      */
     @Test
     @DisplayName("1) Проверка невалидности имени и возраста в dto со значениями null")
-    public void createPersonRequestDtoTest() {
+    void createPersonRequestDtoTest() {
         PersonRequestDto personRequestDto = getPersonRequestDto(null, null, true);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(dtoHasErrorMessage(personRequestDto, "name should not be blank")),
@@ -34,7 +34,7 @@ class PersonValidatorTest {
     @ParameterizedTest(name = "{index}. Проверка невалидности имени \"{arguments}\"")
     @ValueSource(strings = {"", " ", "  ", "   ", "    ", "     "})
     @DisplayName("2) Проверка невалидности имени в dto с пустыми значениями")
-    public void createPersonRequestDtoTest2(String name) {
+    void createPersonRequestDtoTest2(String name) {
         PersonRequestDto personRequestDto = getPersonRequestDto(name, 25, true);
         Assertions.assertTrue(dtoHasErrorMessage(personRequestDto, "name should not be blank"));
     }
@@ -45,7 +45,7 @@ class PersonValidatorTest {
     @ParameterizedTest(name = "{index}. Проверка невалидности возраста \"{arguments}\"")
     @ValueSource(ints = {Integer.MIN_VALUE, -10, -5, -1})
     @DisplayName("3) Проверка невалидности возраста в dto")
-    public void createPersonRequestDtoTest3(int age) {
+    void createPersonRequestDtoTest3(int age) {
         PersonRequestDto personRequestDto = getPersonRequestDto("Игорь", age, true);
         Assertions.assertTrue(dtoHasErrorMessage(personRequestDto, "age should be greater than 0"));
     }
@@ -53,7 +53,7 @@ class PersonValidatorTest {
     @MethodSource("getPersonRequestDtos")
     @ParameterizedTest(name = "{index}. Данные не российского гражданина: {arguments} ")
     @DisplayName("4) Проверка невалидности не российских граждан")
-    public void createPersonRequestDtoTest4(PersonRequestDto requestDto) {
+    void createPersonRequestDtoTest4(PersonRequestDto requestDto) {
         Assertions.assertTrue(dtoHasErrorMessage(requestDto,
                 String.format("not russian must be more 17 age", requestDto.getAge())));
     }
@@ -71,7 +71,7 @@ class PersonValidatorTest {
 
     @Test
     @DisplayName("5) Разные проверки невалидности данных")
-    public void createPersonRequestDtoTest5() {
+    void createPersonRequestDtoTest5() {
         PersonRequestDto personRequestDto = getPersonRequestDto("     ", -2, null);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(dtoHasErrorMessage(personRequestDto, "name should not be blank")),
