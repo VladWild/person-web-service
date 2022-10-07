@@ -7,10 +7,7 @@ import com.person.web.controller.PersonControllerTest;
 import com.person.web.mapper.PersonMapperImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         //repository
         PersonRepository.class
 })
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@DisplayName("Сервис сохранения списка людей")
 class PostPeopleListTest extends PersonControllerTest {
     private static final String POST_PERSON_V1_URL = PERSON_V1_URL + "/list";
 
@@ -39,7 +36,6 @@ class PostPeopleListTest extends PersonControllerTest {
     private PersonRepository personRepository;
 
     @Test
-    @Order(1)
     @DisplayName("1. Проверяем сохранение списка людей")
     void getIntervalsTest() throws Exception {
         MockHttpServletRequestBuilder request = post(POST_PERSON_V1_URL)

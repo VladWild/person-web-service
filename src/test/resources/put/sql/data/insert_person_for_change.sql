@@ -1,0 +1,1 @@
+insert into people (id, name, age, russian) values (1, 'Андрей', 28, true);
