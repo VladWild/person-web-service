@@ -13,6 +13,9 @@ import java.util.stream.Stream;
 import static com.person.web.validator.impl.utils.PersonValidatorTestUtils.getPersonRequestDto;
 import static com.person.web.validator.utils.ValidatorTestUtils.dtoHasErrorMessage;
 
+/**
+ * Примеры тестов (параметризированным тестов) на кастомный валидатор
+ */
 class PersonValidatorTest {
 
     /**
