@@ -50,6 +50,7 @@ class GetPeopleTest extends PersonControllerTest {
                 .andExpect(jsonPath("$[0].name").value("Андрей"))
                 .andExpect(jsonPath("$[0].age").value(28))
                 .andExpect(jsonPath("$[0].russian").value(true))
+                .andExpect(jsonPath("$[0].localDateTime").value("2023-01-01T12:00:00"))
                 .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].name").value("Константин"))
                 .andExpect(jsonPath("$[1].age").value(24))

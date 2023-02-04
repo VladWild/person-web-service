@@ -5,6 +5,7 @@ import com.person.web.validator.PersonValid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @PersonValid
 public class PersonRequestDto {
@@ -14,6 +15,7 @@ public class PersonRequestDto {
     @Min(value = 0, message = "age should be greater than 0")
     private Integer age;
     private Boolean russian;
+    private LocalDateTime localDateTime = LocalDateTime.of(2023, 1, 1, 12, 0);
 
     public String getName() {
         return name;
@@ -37,6 +39,14 @@ public class PersonRequestDto {
 
     public void setRussian(Boolean russian) {
         this.russian = russian;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     @Override
