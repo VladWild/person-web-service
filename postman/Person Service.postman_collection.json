@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "b94e35f4-66f7-40e4-af5a-efaf49ab3205",
+		"name": "Person Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21639941"
+	},
+	"item": [
+		{
+			"name": "Сохранение людей",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Катя\",\n        \"age\": 24,\n        \"russian\": true\n    },\n    {\n        \"name\": \"Сергей\",\n        \"age\": 27,\n        \"russian\": true\n    },\n    {\n        \"name\": \"Alex\",\n        \"age\": 20,\n        \"russian\": false\n    },\n    {\n        \"name\": \"Kate\",\n        \"age\": 28,\n        \"russian\": false\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/person/list"
+			},
+			"response": []
+		},
+		{
+			"name": "Получение людей",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/person?russian=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"person"
+					],
+					"query": [
+						{
+							"key": "russian",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Изменение человека",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Катя\",\n        \"age\": 25,\n        \"russian\": false\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/api/v1/person/3"
+			},
+			"response": []
+		},
+		{
+			"name": "Удаление человека",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseUrl}}/api/v1/person/1"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
