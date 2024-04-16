@@ -110,6 +110,20 @@
             <version>2.1.212</version>
         </dependency>
 
+        <!--db derby-->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.16.1.1</version>
+        </dependency>
+
+        <!--db postgres-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.3</version>
+        </dependency>
+
         <!--spring-data-jpa-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

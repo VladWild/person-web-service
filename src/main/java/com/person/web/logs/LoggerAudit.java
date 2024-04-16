@@ -25,7 +25,8 @@ public class LoggerAudit {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Pointcut("(@annotation(org.springframework.web.bind.annotation.GetMapping) || " +
+    @Pointcut("execution (* com.person.web.controller.PersonController.*(..)) &&" +
+            "(@annotation(org.springframework.web.bind.annotation.GetMapping) || " +
             "@annotation(org.springframework.web.bind.annotation.PostMapping) || " +
             "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.PutMapping))")
